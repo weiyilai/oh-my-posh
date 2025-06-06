@@ -16,6 +16,7 @@ const (
 	WINDOWS = "windows"
 	DARWIN  = "darwin"
 	LINUX   = "linux"
+	FREEBSD = "freebsd"
 	CMD     = "cmd"
 
 	PRIMARY = "primary"
@@ -79,7 +80,6 @@ type Flags struct {
 	AbsolutePWD   string
 	Type          string
 	ConfigHash    string
-	SessionID     string
 	PromptCount   int
 	Column        int
 	TerminalWidth int

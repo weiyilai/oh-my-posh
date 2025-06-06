@@ -1,7 +1,6 @@
 export POSH_THEME=::CONFIG::
 export POSH_SHELL='zsh'
 export POSH_SHELL_VERSION=$ZSH_VERSION
-export POSH_SESSION_ID=::SESSION_ID::
 export POWERLINE_COMMAND='oh-my-posh'
 export CONDA_PROMPT_MODIFIER=false
 export ZLE_RPROMPT_INDENT=0
@@ -13,6 +12,8 @@ export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 
 _omp_executable=::OMP::
 _omp_tooltip_command=''
+
+export POSH_SESSION_ID=$("$_omp_executable" get uuid)
 
 # switches to enable/disable features
 _omp_cursor_positioning=0

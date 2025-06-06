@@ -384,8 +384,14 @@ func (g *Git) setUser() {
 }
 
 func (g *Git) getBareRepoInfo() {
-	// we can still have a pointer to a bare repo
-	if file, err := g.env.HasParentFilePath(".git", true); err == nil && !file.IsDir {
+	file, err := g.env.HasParentFilePath(".git", true)
+
+	if err == nil && file.IsDir {
+		g.mainSCMDir = file.Path
+	}
+
+	// we can have a pointer to a bare repo
+	if err == nil && !file.IsDir {
 		content := g.FileContents(file.ParentFolder, ".git")
 		dir := strings.TrimPrefix(content, "gitdir: ")
 		g.mainSCMDir = filepath.Join(file.ParentFolder, dir)
@@ -888,16 +894,21 @@ func (g *Git) WorktreeCount() int {
 	if g.worktreeCount > 0 {
 		return g.worktreeCount
 	}
-	if !g.env.HasFolder(g.scmDir + "/worktrees") {
+
+	worktreesFolder := filepath.Join(g.mainSCMDir, "worktrees")
+
+	if !g.env.HasFolder(worktreesFolder) {
 		return 0
 	}
-	worktreeFolders := g.env.LsDir(g.scmDir + "/worktrees")
+
+	worktreeFolders := g.env.LsDir(worktreesFolder)
 	var count int
 	for _, folder := range worktreeFolders {
 		if folder.IsDir() {
 			count++
 		}
 	}
+
 	return count
 }
 

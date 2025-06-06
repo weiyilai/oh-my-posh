@@ -2,10 +2,8 @@ package cli
 
 import (
 	"fmt"
-	"os"
 	"time"
 
-	"github.com/google/uuid"
 	"github.com/jandedobbeleer/oh-my-posh/src/config"
 	"github.com/jandedobbeleer/oh-my-posh/src/log"
 	"github.com/jandedobbeleer/oh-my-posh/src/runtime"
@@ -60,6 +58,7 @@ See the documentation to initialize your shell: https://ohmyposh.dev/docs/instal
 	initCmd.Flags().BoolVarP(&printOutput, "print", "p", false, "print the init script")
 	initCmd.Flags().BoolVarP(&strict, "strict", "s", false, "run in strict mode")
 	initCmd.Flags().BoolVar(&debug, "debug", false, "enable/disable debug mode")
+	initCmd.Flags().BoolVar(&eval, "eval", false, "output the prompt for eval")
 
 	_ = initCmd.MarkPersistentFlagRequired("config")
 
@@ -78,11 +77,6 @@ func runInit(sh string) {
 	configFile := config.Path(configFlag)
 	cfg, hash := config.Load(configFile, sh, false)
 
-	// set session ID here so we can reuse the same logic
-	// to initialize the caches everywhere
-	sessionID := uuid.NewString()
-	os.Setenv("POSH_SESSION_ID", sessionID)
-
 	flags := &runtime.Flags{
 		Shell:     sh,
 		Config:    configFile,
@@ -90,7 +84,7 @@ func runInit(sh string) {
 		Debug:     debug,
 		SaveCache: true,
 		Init:      true,
-		SessionID: sessionID,
+		Eval:      eval,
 	}
 
 	env := &runtime.Terminal{}

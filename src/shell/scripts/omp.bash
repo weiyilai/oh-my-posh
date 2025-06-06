@@ -2,7 +2,6 @@ export POSH_THEME=::CONFIG::
 export POSH_SHELL='bash'
 export POSH_SHELL_VERSION=$BASH_VERSION
 export POWERLINE_COMMAND='oh-my-posh'
-export POSH_SESSION_ID=::SESSION_ID::
 export CONDA_PROMPT_MODIFIER=false
 export OSTYPE=$OSTYPE
 
@@ -18,6 +17,8 @@ _omp_no_status=true
 _omp_status=0
 _omp_pipestatus=0
 _omp_executable=::OMP::
+
+export POSH_SESSION_ID=$("$_omp_executable" get uuid)
 
 # switches to enable/disable features
 _omp_cursor_positioning=0

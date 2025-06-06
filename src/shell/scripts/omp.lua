@@ -3,7 +3,6 @@
 ---@diagnostic disable: lowercase-global
 
 -- Environment variables
-os.setenv('POSH_SESSION_ID', '::SESSION_ID::')
 os.setenv('POSH_SHELL', 'cmd')
 
 -- disable all known python virtual environment prompts
@@ -110,6 +109,10 @@ local function run_posh_command(command)
     end
     return output
 end
+
+-- SESSION ID
+
+os.setenv('POSH_SESSION_ID', run_posh_command('get uuid'))
 
 -- Duration functions
 

@@ -1,6 +1,5 @@
 $POWERLINE_COMMAND = "oh-my-posh"
 $POSH_THEME = ::CONFIG::
-$POSH_SESSION_ID = ::SESSION_ID::
 $POSH_SHELL = "xonsh"
 $POSH_SHELL_VERSION = $XONSH_VERSION
 
@@ -10,6 +9,8 @@ $PYENV_VIRTUALENV_DISABLE_PROMPT = 1
 
 _omp_executable = ::OMP::
 _omp_history_length = 0
+
+$POSH_SESSION_ID = $(@(_omp_executable) get uuid)
 
 def _omp_get_context():
     global _omp_history_length
