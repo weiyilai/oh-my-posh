@@ -180,7 +180,8 @@ jobs:
             * "Themes" (for theme: commits)
           - DO NOT include chore, ci, docs, perf, or test commits (marked as hidden in .versionrc.json)
           - Use ONLY the section names specified above, not generic names like "Other"
-          - ONLY show sections that have actual changes - omit empty sections entirely
+          - CRITICAL: DO NOT include a section if there are no changes for it - completely omit empty sections
+          - NEVER write placeholder text like "No new themes" or "No changes in this category" - just skip the entire section
 
           Segment changes (public-facing):
           - When you see changes to src/segments/*.go files (excluding *_test.go), these are prompt segments that users configure
